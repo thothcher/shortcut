@@ -1,0 +1,32 @@
+# Production on one small VPS:  docker compose up -d --build
+# Caddy terminates HTTPS for the platform and for every <slug>.<domain> book site.
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      NODE_ENV: production
+      STORAGE_DIR: /data
+      TRUST_PROXY: "1"
+    volumes:
+      - app-data:/data
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - app
+
+volumes:
+  app-data:
+  caddy-data:
+  caddy-config:

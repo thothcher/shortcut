@@ -1,0 +1,28 @@
+# Replace konspekti.ge with your domain and the e-mail with yours.
+# DNS: an A record for konspekti.ge AND a wildcard A record for *.konspekti.ge, both → the server IP.
+{
+	email you@example.com
+	# Before issuing a certificate for a new subdomain, Caddy asks the app whether that book exists.
+	on_demand_tls {
+		ask http://app:3000/__caddy/ask
+	}
+}
+
+# The platform
+konspekti.ge {
+	encode zstd gzip
+	reverse_proxy app:3000
+}
+
+www.konspekti.ge {
+	redir https://konspekti.ge{uri} permanent
+}
+
+# Book sites: https://<slug>.konspekti.ge — a certificate is issued automatically on the first visit.
+https:// {
+	tls {
+		on_demand
+	}
+	encode zstd gzip
+	reverse_proxy app:3000
+}

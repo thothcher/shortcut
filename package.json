@@ -1,0 +1,25 @@
+{
+  "name": "konspekti",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Subscription platform that gives Georgian university students access to digital study books (summaries, flashcards, games).",
+  "type": "module",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "node --env-file-if-exists=.env --watch src/server.js",
+    "start": "node --env-file-if-exists=.env src/server.js",
+    "seed": "node --env-file-if-exists=.env scripts/seed-demo.js",
+    "test": "node --test",
+    "make-admin": "node --env-file-if-exists=.env scripts/make-admin.js",
+    "import-book": "node --env-file-if-exists=.env scripts/import-book.js",
+    "backup": "node --env-file-if-exists=.env scripts/backup.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^13.0.3",
+    "express": "^5.3.0",
+    "multer": "^2.5.0",
+    "yauzl": "^3.4.0"
+  }
+}
