@@ -1,6 +1,6 @@
-# Deploying Konspekti
+# Deploying Shortcut
 
-Recommended setup: **one small VPS + Docker + Caddy**. It's the cheapest option, and it's the simplest way to get HTTPS for every book subdomain (`cbt.konspekti.ge`, `body-language.konspekti.ge`, …).
+Recommended setup: **one small VPS + Docker + Caddy**. It's the cheapest option, and it's the simplest way to get HTTPS for every book subdomain (`cbt.shortcut.ge`, `body-language.shortcut.ge`, …).
 
 Cost: a VPS such as Hetzner CX22 (2 vCPU, 4 GB RAM, 40 GB disk) costs about €5/month and handles thousands of students. The domain is billed yearly. E-mail (Resend free tier) and Caddy's certificates (Let's Encrypt) are free.
 
@@ -13,7 +13,7 @@ Buy the domain (`.ge` from a Georgian registrar, or `.com`). Then create two DNS
 | A | `@` | server IP |
 | A | `*` | server IP |
 
-The wildcard `*` record is what makes `<book>.konspekti.ge` work. If you use Cloudflare for DNS, set both records to **DNS only** (grey cloud).
+The wildcard `*` record is what makes `<book>.shortcut.ge` work. If you use Cloudflare for DNS, set both records to **DNS only** (grey cloud).
 
 ## 2. Server
 
@@ -21,7 +21,7 @@ Ubuntu 24.04, then:
 
 ```bash
 curl -fsSL https://get.docker.com | sh
-git clone <your private repo> konspekti && cd konspekti
+git clone <your private repo> shortcut && cd shortcut
 cp .env.example .env && nano .env
 ```
 
@@ -29,13 +29,13 @@ Production `.env` (the important lines):
 
 ```ini
 NODE_ENV=production
-APP_URL=https://konspekti.ge
-BOOKS_DOMAIN=konspekti.ge
+APP_URL=https://shortcut.ge
+BOOKS_DOMAIN=shortcut.ge
 SESSION_SECRET=<64 random hex chars: openssl rand -hex 32>
 FLITT_MERCHANT_ID=<from Flitt>
 FLITT_SECRET_KEY=<payment key from Flitt merchant portal>
 RESEND_API_KEY=<from resend.com>
-EMAIL_FROM="Konspekti <no-reply@konspekti.ge>"
+EMAIL_FROM="Shortcut <no-reply@shortcut.ge>"
 COMPANY_NAME="ი/მ ..."
 COMPANY_ID=...
 COMPANY_ADDRESS=...
@@ -44,11 +44,11 @@ CONTACT_PHONE=...
 ADMIN_API_TOKEN=<openssl rand -hex 24>
 ```
 
-Edit `deploy/Caddyfile`: replace `konspekti.ge` with your domain and set your e-mail. Then:
+Edit `deploy/Caddyfile`: replace `shortcut.ge` with your domain and set your e-mail. Then:
 
 ```bash
 docker compose up -d --build
-docker compose logs -f app        # should print "Konspekti is running"
+docker compose logs -f app        # should print "Shortcut is running"
 ```
 
 ## 3. First admin
@@ -75,10 +75,10 @@ Flitt sends callbacks from `54.154.216.60` and `3.75.125.89`. If you use a firew
 
 ## 5. Backups (do this on day one)
 
-Everything lives in the `konspekti_app-data` Docker volume: the database, the book sites and the covers. Add a daily cron job (`crontab -e`) that copies a consistent database snapshot plus the files off the server:
+Everything lives in the `shortcut_app-data` Docker volume: the database, the book sites and the covers. Add a daily cron job (`crontab -e`) that copies a consistent database snapshot plus the files off the server:
 
 ```cron
-30 3 * * * cd /root/konspekti && docker compose exec -T app node scripts/backup.js /data/backups && docker run --rm -v konspekti_app-data:/data -v /root/backups:/backup alpine tar czf /backup/konspekti-$(date +\%F).tgz -C /data . && find /root/backups -mtime +14 -delete
+30 3 * * * cd /root/shortcut && docker compose exec -T app node scripts/backup.js /data/backups && docker run --rm -v shortcut_app-data:/data -v /root/backups:/backup alpine tar czf /backup/shortcut-$(date +\%F).tgz -C /data . && find /root/backups -mtime +14 -delete
 ```
 
 Then sync `/root/backups` to off-site storage, e.g. with `rclone` to Cloudflare R2 or Backblaze B2. A backup that lives only on the same server is not a backup.
@@ -93,13 +93,13 @@ Database migrations run automatically at start-up.
 
 ## 7. Monitoring
 
-Add a free uptime check (e.g. UptimeRobot) on `https://konspekti.ge/healthz`.
+Add a free uptime check (e.g. UptimeRobot) on `https://shortcut.ge/healthz`.
 
 ## Without Docker / other hosts
 
 The app is a plain Node.js (22.12+) program: `npm ci --omit=dev && npm start`. Any host works if it gives you:
 
 1. a **persistent disk** for `STORAGE_DIR` (SQLite and the book files), and
-2. **wildcard subdomains with HTTPS** (`*.konspekti.ge`).
+2. **wildcard subdomains with HTTPS** (`*.shortcut.ge`).
 
 Serverless hosts such as Vercel or Netlify Functions don't fit: they have no persistent disk. Render and Railway have persistent disks; check their current wildcard-domain support before choosing them.

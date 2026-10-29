@@ -1,6 +1,6 @@
-# Konspekti: project plan
+# Shortcut: project plan
 
-*Working name. Change it with `APP_NAME` in `.env` and the logo in `src/views/icons.js`. Written 29 October 2026.*
+*Name: Shortcut. To change it, set `APP_NAME` in `.env` and edit the logo in `src/views/icons.js`. Written 29 October 2026.*
 
 ## 1. The idea
 
@@ -21,7 +21,7 @@ The full MVP works locally and has been tested end to end in a real browser (Edg
 - Pricing and checkout with a consent checkbox, success/pending/failed pages.
 
 **Books**
-- Every book gets its own address: `cbt.konspekti.ge`, `body-language.konspekti.ge`, …
+- Every book gets its own address: `cbt.shortcut.ge`, `body-language.shortcut.ge`, …
 - Any static build works: plain HTML, Vite, Next.js, Angular. GitHub Pages builds with a base path (`/CBT/`, `/body-lang/`) are detected automatically. Your four existing builds were imported unchanged and all open correctly.
 - Access is checked on every file. A small "ბიბლიოთეკა" button and a faint e-mail watermark are added to every book page.
 - Upload a ZIP in the admin panel, or push it through the **API** (for your PDF converter).

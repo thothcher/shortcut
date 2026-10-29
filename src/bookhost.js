@@ -21,7 +21,7 @@ const BOOK_COOKIE = config.secureCookies ? '__Host-bk' : 'bk';
 const COOKIE_MS = 12 * 60 * 60 * 1000;
 const BAR_JS = path.join(config.root, 'public', 'js', 'bar.js');
 
-/** "cbt" for host "cbt.konspekti.ge" (or "cbt.localhost:3000" in development), otherwise null. */
+/** "cbt" for host "cbt.shortcut.ge" (or "cbt.localhost:3000" in development), otherwise null. */
 export function bookSlugFromHost(hostHeader) {
   const host = String(hostHeader || '').toLowerCase();
   const suffix = `.${config.booksDomain}`;

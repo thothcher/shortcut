@@ -1,12 +1,12 @@
 {
-  "name": "konspekti",
+  "name": "shortcut",
   "version": "0.1.0",
   "private": true,
   "description": "Subscription platform that gives Georgian university students access to digital study books (summaries, flashcards, games).",
-  "homepage": "https://thothcher.github.io/konspekti/",
+  "homepage": "https://thothcher.github.io/shortcut/",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thothcher/konspekti.git"
+    "url": "git+https://github.com/thothcher/shortcut.git"
   },
   "type": "module",
   "engines": {

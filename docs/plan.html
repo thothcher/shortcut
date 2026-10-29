@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Konspekti project plan</title>
+<title>Shortcut project plan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700&family=Noto+Serif+Georgian:wght@600;700&display=swap" rel="stylesheet">
@@ -132,7 +132,7 @@ footer .wrap { display: grid; gap: 6px; }
 <body>
 
 <header class="top wrap">
-  <p class="eyebrow">Project plan · 29 October 2026 · working name “Konspekti”</p>
+  <p class="eyebrow">Project plan · 29 October 2026 · Shortcut</p>
   <h1>A 10 ₾ study library for TSU, IliaUni and BTU students</h1>
   <p class="lede">Students register, pick their university and program, pay 10 ₾ for 30 days through Flitt, and open their subjects as interactive books with summaries, flashcards, games and exam questions. Other developers build the books. The platform is the shop, the library and the paywall.</p>
   <div class="pills">
@@ -203,7 +203,7 @@ footer .wrap { display: grid; gap: 6px; }
         <li>Account page: access, profile, password, devices, payments</li>
       </ul></div>
       <div class="card"><h3>Books</h3><ul>
-        <li>Each book on its own subdomain, such as <code>cbt.konspekti.ge</code></li>
+        <li>Each book on its own subdomain, such as <code>cbt.shortcut.ge</code></li>
         <li>Works with plain HTML, Vite, Next.js and Angular builds</li>
         <li>GitHub Pages base paths (<code>/CBT/</code>, <code>/body-lang/</code>) detected on upload</li>
         <li>Access checked on every file; a “ბიბლიოთეკა” button and e-mail watermark added</li>
@@ -227,11 +227,11 @@ footer .wrap { display: grid; gap: 6px; }
   <section id="how">
     <h2>How it works</h2>
     <div class="flow" role="list">
-      <div class="node" role="listitem"><b>konspekti.ge</b><small>Sign-up, library, payment, account and admin. One Node.js process with a SQLite file.</small></div>
+      <div class="node" role="listitem"><b>shortcut.ge</b><small>Sign-up, library, payment, account and admin. One Node.js process with a SQLite file.</small></div>
       <div class="arrow" aria-hidden="true">→</div>
       <div class="node" role="listitem"><b>Flitt</b><small>The student pays 10 ₾. A signed callback adds 30 days to their access.</small></div>
       <div class="arrow" aria-hidden="true">→</div>
-      <div class="node" role="listitem"><b>cbt.konspekti.ge</b><small>Opening a book hands over a 60-second ticket. Logging out or a third device closes the book too.</small></div>
+      <div class="node" role="listitem"><b>cbt.shortcut.ge</b><small>Opening a book hands over a 60-second ticket. Logging out or a third device closes the book too.</small></div>
     </div>
     <div class="table-wrap"><table>
       <thead><tr><th>Part</th><th>Choice</th><th>Why</th></tr></thead>

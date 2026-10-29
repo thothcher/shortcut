@@ -1,6 +1,6 @@
 // Book upload API — lets the PDF→website converter (or a CI script) publish a book without the admin panel.
 //
-//   curl -X PUT "https://konspekti.ge/api/books/cbt/content?title=CBT&publish=1" \
+//   curl -X PUT "https://shortcut.ge/api/books/cbt/content?title=CBT&publish=1" \
 //        -H "Authorization: Bearer $ADMIN_API_TOKEN" -H "Content-Type: application/zip" \
 //        --data-binary @site.zip
 import fs from 'node:fs';

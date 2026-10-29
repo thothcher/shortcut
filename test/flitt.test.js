@@ -28,7 +28,7 @@ test('empty values are skipped, zero is kept, signature fields are ignored', () 
 });
 
 test('verify accepts a correctly signed callback and rejects a tampered one', () => {
-  const payload = { order_id: 'KP-1', merchant_id: '1549901', amount: '1000', currency: 'GEL', order_status: 'approved' };
+  const payload = { order_id: 'SC-1', merchant_id: '1549901', amount: '1000', currency: 'GEL', order_status: 'approved' };
   payload.signature = sign('test', payload);
   assert.equal(verify('test', payload), true);
   assert.equal(verify('test', { ...payload, amount: '1' }), false);

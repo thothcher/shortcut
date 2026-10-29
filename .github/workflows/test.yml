@@ -20,4 +20,4 @@ jobs:
           npm run seed
           node src/server.js &
           for i in $(seq 1 30); do curl -sf http://localhost:3000/healthz && break; sleep 1; done
-          curl -sf http://localhost:3000/ | grep -q "Konspekti"
+          curl -sf http://localhost:3000/ | grep -q "Shortcut"

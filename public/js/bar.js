@@ -3,8 +3,8 @@
 // Shadow DOM so it cannot break the book's own styles, and the book cannot restyle it.
 (() => {
   const script = document.currentScript;
-  if (!script || window.__kpBar) return;
-  window.__kpBar = true;
+  if (!script || window.__shortcutBar) return;
+  window.__shortcutBar = true;
 
   const library = script.dataset.library;
   const appName = script.dataset.app || '';
@@ -47,8 +47,8 @@
   }
 
   function mount() {
-    if (document.querySelector('kp-bar')) return;
-    const host = document.createElement('kp-bar');
+    if (document.querySelector('shortcut-bar')) return;
+    const host = document.createElement('shortcut-bar');
     const root = host.attachShadow({ mode: 'closed' });
 
     const style = document.createElement('style');

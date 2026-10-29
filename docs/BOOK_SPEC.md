@@ -1,6 +1,6 @@
 # Book site spec — for the developers who build the books
 
-The platform hosts each book on its own address, for example `https://cbt.konspekti.ge`, and only lets in students who paid. You build the book however you like. This page lists the few rules that make it work on the platform.
+The platform hosts each book on its own address, for example `https://cbt.shortcut.ge`, and only lets in students who paid. You build the book however you like. This page lists the few rules that make it work on the platform.
 
 ## 1. Deliver a static build
 
@@ -79,7 +79,7 @@ Only use material you are allowed to use: your own summaries written in your own
 - **API** (for the PDF converter or CI):
 
 ```bash
-curl -X PUT "https://konspekti.ge/api/books/cbt/content?title=CBT&publish=1" \
+curl -X PUT "https://shortcut.ge/api/books/cbt/content?title=CBT&publish=1" \
   -H "Authorization: Bearer $ADMIN_API_TOKEN" \
   -H "Content-Type: application/zip" \
   --data-binary @site.zip

@@ -11,9 +11,9 @@
   };
   const bar = document.createElement('script');
   bar.src = new URL('../js/bar.js', me.src).href;
-  bar.dataset.library = saved('kp-demo-library') || new URL('../../', me.src).href;
-  bar.dataset.app = 'Konspekti';
-  const email = saved('kp-demo-email');
+  bar.dataset.library = saved('shortcut-demo-library') || new URL('../../', me.src).href;
+  bar.dataset.app = me.dataset.app || ''; // APP_NAME, written by demo/build.js
+  const email = saved('shortcut-demo-email');
   if (email) bar.dataset.wm = email;
   document.head.append(bar);
 })();

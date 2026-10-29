@@ -17,10 +17,10 @@ import { once } from 'node:events';
 
 const root = path.resolve(import.meta.dirname, '..');
 const out = path.resolve(root, process.argv[2] || '_site');
-// Where the site will live, e.g. "/konspekti/" on GitHub Pages. Only the 404 page needs it.
+// Where the site will live, e.g. "/shortcut/" on GitHub Pages. Only the 404 page needs it.
 const trimmedBase = (process.env.BASE_PATH || '').replace(/^\/+|\/+$/g, '');
 if (!/^[\w./-]*$/.test(trimmedBase)) {
-  // Git Bash on Windows turns "/konspekti" into "C:/Program Files/Git/konspekti"; MSYS_NO_PATHCONV=1 prevents it.
+  // Git Bash on Windows turns "/shortcut" into "C:/Program Files/Git/shortcut"; MSYS_NO_PATHCONV=1 prevents it.
   throw new Error(`BASE_PATH should look like /my-repo, got "${process.env.BASE_PATH}"`);
 }
 const basePath = trimmedBase ? `/${trimmedBase}/` : '/';
@@ -36,7 +36,7 @@ if (fs.existsSync(out) && fs.readdirSync(out).length && !fs.existsSync(path.join
 }
 
 // The app reads its settings when it is first imported, so set them before that.
-const storage = await fsp.mkdtemp(path.join(os.tmpdir(), 'konspekti-demo-'));
+const storage = await fsp.mkdtemp(path.join(os.tmpdir(), 'shortcut-demo-'));
 for (const key of ['PORT', 'BOOKS_DOMAIN', 'PAYMENT_PROVIDER', 'FLITT_MERCHANT_ID', 'FLITT_SECRET_KEY', 'RESEND_API_KEY', 'SESSION_SECRET', 'TRUST_PROXY', 'WATERMARK']) {
   delete process.env[key];
 }
@@ -51,8 +51,8 @@ const log = console.log.bind(console);
 console.log = () => {};
 
 // Accounts created by scripts/seed-demo.js
-const STUDENT = { email: 'student@konspekti.local', password: 'konspekti-demo' };
-const ADMIN = { email: 'admin@konspekti.local', password: 'konspekti-admin' };
+const STUDENT = { email: 'student@shortcut.local', password: 'shortcut-demo' };
+const ADMIN = { email: 'admin@shortcut.local', password: 'shortcut-admin' };
 
 // Who the demo shows. Each one gets its own folder. "new" and "paid" are the same student,
 // before and after paying.
@@ -72,6 +72,7 @@ let dirs = new Set(); // folders of all saved pages (filled before the links are
 const SKIP = /^\/(static|covers|api|reset|logout|billing\/mock|healthz|robots\.txt|__)/;
 let origin = ''; // the app's own address (APP_URL)
 let bookUrl = /$^/; // matches https://<slug>.<BOOKS_DOMAIN>/…
+let appName = ''; // APP_NAME, shown on the books' "ბიბლიოთეკა" button
 
 let server;
 let db;
@@ -92,6 +93,7 @@ try {
   await once(server, 'listening');
   const site = `http://127.0.0.1:${port}`; // where the requests go
   origin = config.appUrl; // what the app believes its address is
+  appName = config.appName;
   bookUrl = new RegExp(`^https?://([a-z0-9-]+)\\.${escapeRegExp(config.booksDomain)}(?:[/?#]|$)`, 'i');
 
   class Visitor {
@@ -371,7 +373,7 @@ function rewriteForms(html, persona, to) {
     } else if (action.pathname === '/login') {
       data['demo-to'] = page('paid', next) || page('paid', '/library');
       data['demo-admin'] = page('owner', '/admin');
-      hint = 'დემოში ნებისმიერი ელ-ფოსტა და პაროლი გამოდგება. ადმინის პანელისთვის შეიყვანე <code>admin@konspekti.local</code>.';
+      hint = 'დემოში ნებისმიერი ელ-ფოსტა და პაროლი გამოდგება. ადმინის პანელისთვის შეიყვანე <code>admin@shortcut.local</code>.';
     } else if (action.pathname === '/register') {
       data['demo-to'] = page('new', next) || page('new', '/library?ok=welcome');
       hint = 'დემოში ანგარიში არ იქმნება: რეგისტრაციის შემდეგ ნახავ სადემონსტრაციო სტუდენტის ბიბლიოთეკას.';
@@ -461,7 +463,7 @@ function decorate(html, persona, to) {
 /** A sample book page: the platform's "ბიბლიოთეკა" button (via book.js), and noindex. */
 function addToBook(text, loader) {
   text = text.replace(/<head\b[^>]*>/i, (tag) => `${tag}\n  <meta name="robots" content="noindex">`);
-  const tag = `<script src="${loader}" defer></script>`;
+  const tag = `<script src="${loader}" data-app="${encode(appName)}" defer></script>`;
   let index = -1;
   for (const match of text.matchAll(/<\/body\s*>/gi)) index = match.index;
   return index === -1 ? text + tag : text.slice(0, index) + tag + text.slice(index);

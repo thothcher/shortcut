@@ -21,7 +21,7 @@ export class UserError extends Error {}
 // ───────── Slugs ─────────
 
 export const SLUG_RE = /^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/;
-// The slug becomes a subdomain (<slug>.konspekti.ge), so names used by the platform itself are blocked.
+// The slug becomes a subdomain (<slug>.shortcut.ge), so names used by the platform itself are blocked.
 const RESERVED = new Set(
   'www app api admin mail smtp static cdn assets read books help support blog docs status dev test staging localhost'.split(' '),
 );

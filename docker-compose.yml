@@ -1,5 +1,6 @@
 # Production on one small VPS:  docker compose up -d --build
 # Caddy terminates HTTPS for the platform and for every <slug>.<domain> book site.
+name: shortcut # fixed project name, so the data volume is always "shortcut_app-data"
 services:
   app:
     build: .

@@ -1,8 +1,8 @@
-# Konspekti
+# Shortcut
 
 A subscription platform for Georgian university students (TSU, IliaUni, BTU, …). A student registers, chooses their university and program, pays **10 ₾ for 30 days**, and gets a library of digital study books: summaries, flashcards, games and tests. Each book is a website built by a different developer (or by the PDF converter). The platform hosts the books behind the paywall and gives every student one simple place to find them.
 
-**Live demo: <https://thothcher.github.io/konspekti/>** is a click-through copy on GitHub Pages, with no real accounts or payments. See [Static demo](#static-demo-on-github-pages).
+**Live demo: <https://thothcher.github.io/shortcut/>** is a click-through copy on GitHub Pages, with no real accounts or payments. See [Static demo](#static-demo-on-github-pages).
 
 - **[PLAN.md](PLAN.md)** — the project plan, roadmap and your to-do list
 - **[docs/BOOK_SPEC.md](docs/BOOK_SPEC.md)** — rules for the developers who build the books
@@ -10,13 +10,13 @@ A subscription platform for Georgian university students (TSU, IliaUni, BTU, …
 
 ## სწრაფი დაწყება
 
-**ცოცხალი დემო:** <https://thothcher.github.io/konspekti/> — სტატიკური ასლი: შეგიძლია დაათვალიერო, როგორც სტუმარმა, სტუდენტმა ან ადმინმა. ნამდვილი რეგისტრაცია და სატესტო გადახდა მხოლოდ საკუთარ კომპიუტერზე გაშვებისას მუშაობს:
+**ცოცხალი დემო:** <https://thothcher.github.io/shortcut/> — სტატიკური ასლი: შეგიძლია დაათვალიერო, როგორც სტუმარმა, სტუდენტმა ან ადმინმა. ნამდვილი რეგისტრაცია და სატესტო გადახდა მხოლოდ საკუთარ კომპიუტერზე გაშვებისას მუშაობს:
 
 საჭიროა [Node.js](https://nodejs.org) 22.12 ან უფრო ახალი ვერსია. მუშაობს Windows-ზე, macOS-სა და Linux-ზე.
 
 ```bash
-git clone https://github.com/thothcher/konspekti.git
-cd konspekti
+git clone https://github.com/thothcher/shortcut.git
+cd shortcut
 npm install
 npm run seed   # ორი სადემონსტრაციო წიგნი და სამი ანგარიში
 npm run dev
@@ -26,9 +26,9 @@ npm run dev
 
 | ანგარიში | ელ-ფოსტა | პაროლი |
 |---|---|---|
-| ადმინი | `admin@konspekti.local` | `konspekti-admin` |
-| სტუდენტი, წვდომით | `student@konspekti.local` | `konspekti-demo` |
-| ახალი სტუდენტი, წვდომის გარეშე | `new@konspekti.local` | `konspekti-demo` |
+| ადმინი | `admin@shortcut.local` | `shortcut-admin` |
+| სტუდენტი, წვდომით | `student@shortcut.local` | `shortcut-demo` |
+| ახალი სტუდენტი, წვდომის გარეშე | `new@shortcut.local` | `shortcut-demo` |
 
 გადახდა სატესტო რეჟიმშია — ნამდვილი თანხა არ ჩამოიჭრება. სადემონსტრაციო წიგნების შიგთავსი `examples/books/*.json` ფაილებშია: შეცვალე ან დაამატე ახალი, შემდეგ კვლავ გაუშვი `npm run seed`.
 
@@ -59,12 +59,12 @@ Useful commands:
 ## How it works
 
 ```
-                    konspekti.ge  (the platform)
+                    shortcut.ge  (the platform)
   student ──────►   register · library · pay · account · admin
                          │
                          │ /open/cbt → 60-second signed ticket
                          ▼
-                    cbt.konspekti.ge  (one subdomain per book)
+                    cbt.shortcut.ge  (one subdomain per book)
                     checks the session + access on every request,
                     serves the book's static build, adds the
                     "ბიბლიოთეკა" button and an e-mail watermark

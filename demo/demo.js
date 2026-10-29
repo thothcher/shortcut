@@ -7,8 +7,8 @@
   // The sample books' "ბიბლიოთეკა" button returns to this user's library (see book.js).
   if (script.dataset.library) {
     try {
-      localStorage.setItem('kp-demo-library', new URL(script.dataset.library, location.href).href);
-      localStorage.setItem('kp-demo-email', script.dataset.email || '');
+      localStorage.setItem('shortcut-demo-library', new URL(script.dataset.library, location.href).href);
+      localStorage.setItem('shortcut-demo-email', script.dataset.email || '');
     } catch {
       // Storage blocked: the button then goes to the start page.
     }

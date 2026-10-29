@@ -40,7 +40,7 @@ export const config = {
   root,
   isProd,
   port,
-  appName: env.APP_NAME || 'Konspekti',
+  appName: env.APP_NAME || 'Shortcut',
   appUrl: appUrl.origin,
   appHost: appUrl.host.toLowerCase(),
   protocol: appUrl.protocol,
@@ -75,7 +75,7 @@ export const config = {
 
   email: {
     resendApiKey: env.RESEND_API_KEY || '',
-    from: env.EMAIL_FROM || `${env.APP_NAME || 'Konspekti'} <no-reply@${appUrl.hostname}>`,
+    from: env.EMAIL_FROM || `${env.APP_NAME || 'Shortcut'} <no-reply@${appUrl.hostname}>`,
   },
 
   // Shown in the footer, legal pages and receipts. Flitt asks for these before approving a merchant.
@@ -97,5 +97,5 @@ if (config.payments.provider === 'flitt' && (!config.payments.flitt.merchantId |
 
 export const DAY = 24 * 60 * 60 * 1000;
 
-/** Origin of a book site, e.g. https://cbt.konspekti.ge */
+/** Origin of a book site, e.g. https://cbt.shortcut.ge */
 export const bookOrigin = (slug) => `${config.protocol}//${slug}.${config.booksDomain}`;

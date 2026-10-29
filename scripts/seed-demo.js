@@ -29,7 +29,7 @@ function programIds(spec) {
 const booksDir = path.join(examples, 'books');
 for (const file of fs.readdirSync(booksDir).filter((f) => f.endsWith('.json'))) {
   const data = JSON.parse(fs.readFileSync(path.join(booksDir, file), 'utf8'));
-  const work = await fsp.mkdtemp(path.join(os.tmpdir(), 'konspekti-book-'));
+  const work = await fsp.mkdtemp(path.join(os.tmpdir(), 'shortcut-book-'));
   try {
     await fsp.cp(path.join(examples, 'book-template'), work, { recursive: true });
     await fsp.cp(path.join(config.root, 'public', 'fonts'), path.join(work, 'fonts'), { recursive: true });
@@ -56,9 +56,9 @@ for (const file of fs.readdirSync(booksDir).filter((f) => f.endsWith('.json'))) 
 const [btuCs] = programIds([{ university: 'btu', program: 'კომპიუტერული მეცნიერება' }]);
 const [tsuPsychology] = programIds([{ university: 'tsu', program: 'ფსიქოლოგია' }]);
 const accounts = [
-  { email: 'admin@konspekti.local', password: 'konspekti-admin', name: 'ადმინისტრატორი', programId: btuCs, admin: true },
-  { email: 'student@konspekti.local', password: 'konspekti-demo', name: 'ნინო ბერიძე', programId: btuCs, days: 30 },
-  { email: 'new@konspekti.local', password: 'konspekti-demo', name: 'ლუკა კაპანაძე', programId: tsuPsychology },
+  { email: 'admin@shortcut.local', password: 'shortcut-admin', name: 'ადმინისტრატორი', programId: btuCs, admin: true },
+  { email: 'student@shortcut.local', password: 'shortcut-demo', name: 'ნინო ბერიძე', programId: btuCs, days: 30 },
+  { email: 'new@shortcut.local', password: 'shortcut-demo', name: 'ლუკა კაპანაძე', programId: tsuPsychology },
 ];
 for (const a of accounts) {
   if (getUserByEmail(a.email)) {

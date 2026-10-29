@@ -8,7 +8,7 @@ export const getOrder = (id) => db.prepare('SELECT * FROM orders WHERE id = ?').
 
 export function createOrder(user, { provider = config.payments.provider, days = config.plan.days, amount = config.plan.amount, note = null } = {}) {
   const stamp = new Date().toISOString().slice(0, 10).replace(/-/g, '');
-  const id = `KP-${stamp}-${crypto.randomBytes(5).toString('hex').toUpperCase()}`;
+  const id = `SC-${stamp}-${crypto.randomBytes(5).toString('hex').toUpperCase()}`;
   const now = Date.now();
   db.prepare(
     `INSERT INTO orders (id, user_id, provider, amount, currency, days, status, note, created_at, updated_at)
