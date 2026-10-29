@@ -134,7 +134,7 @@ export function bookFormPage(c, { book, universities, programIds = [], values = 
     </div>
     <div class="field">
       <label class="label" for="slug">მისამართი (ლათინურად)</label>
-      <input class="input" id="slug" name="slug" required maxlength="48" pattern="[a-z0-9-]+" value="${v.slug || ''}" data-slug-preview="#slug-host"${invalid(errors, 'slug')}>
+      <input class="input" id="slug" name="slug" required maxlength="48" pattern="[a-z0-9]+(-[a-z0-9]+)*" value="${v.slug || ''}" data-slug-preview="#slug-host"${invalid(errors, 'slug')}>
       ${errors.slug ? fieldError(errors, 'slug') : html`<p class="hint">წიგნი გაიხსნება მისამართზე: <code id="slug-host" data-domain="${config.booksDomain}">${host}</code></p>`}
     </div>
     <div class="field-row">
@@ -263,7 +263,7 @@ export function universitiesPage(c, { universities, error = '' }) {
           <form class="form" method="post" action="/admin/universities">
             ${csrfField(c)}
             <div class="field-row">
-              <div class="field field--narrow"><label class="label" for="u-code">კოდი (ლათ.)</label><input class="input" id="u-code" name="code" required maxlength="20" pattern="[a-z0-9-]+" placeholder="sangu"></div>
+              <div class="field field--narrow"><label class="label" for="u-code">კოდი (ლათ.)</label><input class="input" id="u-code" name="code" required maxlength="20" pattern="[a-z0-9]+(-[a-z0-9]+)*" placeholder="sangu"></div>
               <div class="field field--narrow"><label class="label" for="u-short">მოკლე სახელი</label><input class="input" id="u-short" name="short_name" required maxlength="20" placeholder="SANGU"></div>
             </div>
             <div class="field"><label class="label" for="u-name">სრული სახელი</label><input class="input" id="u-name" name="name" required maxlength="160"></div>

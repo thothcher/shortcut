@@ -1,0 +1,42 @@
+/* Static demo only (GitHub Pages): the bar on top, the note toast, the hints in forms. */
+
+.demo-bar { background: var(--ink); color: #fff; font-size: 13px; line-height: 1.45; }
+.demo-bar__row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 18px; padding-top: 8px; padding-bottom: 8px; }
+.demo-bar p { flex: 1 1 280px; margin: 0; color: rgba(255, 255, 255, 0.86); }
+.demo-bar strong { color: #fff; }
+.demo-bar a { color: #fff; text-decoration: none; border-radius: 999px; }
+.demo-bar a:focus-visible { outline: 2px solid var(--sage); outline-offset: 2px; }
+.demo-bar__as { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+.demo-bar__as span { margin-right: 4px; color: rgba(255, 255, 255, 0.7); }
+.demo-bar__as a { padding: 3px 10px; background: rgba(255, 255, 255, 0.09); }
+.demo-bar__as a:hover { background: rgba(255, 255, 255, 0.18); }
+.demo-bar__as a[aria-current] { background: #fff; color: var(--ink); font-weight: 600; }
+.demo-bar__code { padding: 3px 0; text-decoration: underline !important; text-underline-offset: 3px; }
+
+@media (max-width: 640px) {
+  .demo-bar { font-size: 12.5px; }
+  .demo-bar__row { gap: 6px 10px; padding-top: 7px; padding-bottom: 7px; }
+  .demo-bar p { flex: 1 1 auto; }
+  .demo-bar__more, .demo-bar__as > span { display: none; }
+  .demo-bar__code { order: 2; }
+  .demo-bar__as { order: 3; width: 100%; }
+  .demo-bar__as a { padding: 2px 9px; }
+}
+
+/* Sign-in pages centre the card in the screen; keep it centred in the space under the bar. */
+body.v-auth { display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh; }
+.v-auth main { flex: 1; display: flex; flex-direction: column; }
+.v-auth .auth { flex: 1; min-height: 0; }
+
+.demo-hint { margin: 0 0 4px; padding: 10px 14px; border-radius: var(--radius-sm); background: var(--sand-l); color: var(--sand-d); font-size: 14px; line-height: 1.5; }
+.demo-hint code { background: rgba(255, 255, 255, 0.65); }
+
+.demo-toast {
+  position: fixed; left: 50%; bottom: 24px; z-index: 200;
+  max-width: min(92vw, 460px); padding: 12px 18px; border-radius: 14px;
+  background: var(--ink); color: #fff; font-size: 14.5px; line-height: 1.5; box-shadow: var(--shadow-lg);
+  opacity: 0; transform: translate(-50%, 12px); pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s var(--ease);
+}
+.demo-toast.is-on { opacity: 1; transform: translate(-50%, 0); }
+@media (prefers-reduced-motion: reduce) { .demo-toast { transition: none; } }

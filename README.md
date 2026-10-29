@@ -2,11 +2,15 @@
 
 A subscription platform for Georgian university students (TSU, IliaUni, BTU, …). A student registers, chooses their university and program, pays **10 ₾ for 30 days**, and gets a library of digital study books: summaries, flashcards, games and tests. Each book is a website built by a different developer (or by the PDF converter). The platform hosts the books behind the paywall and gives every student one simple place to find them.
 
+**Live demo: <https://thothcher.github.io/konspekti/>** is a click-through copy on GitHub Pages, with no real accounts or payments. See [Static demo](#static-demo-on-github-pages).
+
 - **[PLAN.md](PLAN.md)** — the project plan, roadmap and your to-do list
 - **[docs/BOOK_SPEC.md](docs/BOOK_SPEC.md)** — rules for the developers who build the books
 - **[docs/DEPLOY.md](docs/DEPLOY.md)** — putting it online
 
 ## სწრაფი დაწყება
+
+**ცოცხალი დემო:** <https://thothcher.github.io/konspekti/> — სტატიკური ასლი: შეგიძლია დაათვალიერო, როგორც სტუმარმა, სტუდენტმა ან ადმინმა. ნამდვილი რეგისტრაცია და სატესტო გადახდა მხოლოდ საკუთარ კომპიუტერზე გაშვებისას მუშაობს:
 
 საჭიროა [Node.js](https://nodejs.org) 22.12 ან უფრო ახალი ვერსია. მუშაობს Windows-ზე, macOS-სა და Linux-ზე.
 
@@ -46,6 +50,7 @@ Useful commands:
 |---|---|
 | `npm run dev` | Start with auto-restart on code changes |
 | `npm run seed` | Add the sample books from `examples/books` and the demo accounts |
+| `npm run build:demo` | Build the static GitHub Pages demo into `_site/` |
 | `npm test` | Unit tests (Flitt signatures, base-path detection, escaping, tokens) |
 | `npm run make-admin -- you@example.com` | Make a registered user an admin |
 | `npm run import-book -- cbt ../CBT/dist --title "…" --programs 1,7 --publish` | Import a build folder or ZIP as a book |
@@ -91,8 +96,17 @@ src/
 public/              css/app.css, js/app.js, js/bar.js (button injected into books), fonts
 scripts/             seed-demo, make-admin, import-book, backup
 examples/            sample books: book.json content + a tiny static "book engine"
+demo/                the static GitHub Pages demo (build.js, plus demo.js/css for the browser)
 test/                node --test unit tests
 ```
+
+## Static demo on GitHub Pages
+
+GitHub Pages only serves files, so it cannot run this server. `npm run build:demo` starts the app with the sample data in a temporary folder and visits it as four users: a guest, a new student, the same student after paying, and the admin. It saves every page they can reach into `_site/` and copies the sample books. Each persona gets its own folder (`new/`, `paid/`, `owner/`).
+
+A static site cannot receive forms. The build stores, in each form, the address of the page the server would answer with, and `demo/demo.js` opens that page instead (log in → library, pay → "payment succeeded"). Admin forms show a "not saved in the demo" note.
+
+The `pages` workflow (`.github/workflows/pages.yml`) rebuilds and publishes the demo on every push to `main`, and every Monday so dates stay current. To preview it locally, run `npm run build:demo`, then `npx serve _site`.
 
 ## Security notes
 
