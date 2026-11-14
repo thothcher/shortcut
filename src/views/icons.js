@@ -58,7 +58,10 @@ export const icon = (name, size = 20) =>
     `<svg class="i" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${PATHS[name] || ''}</svg>`,
   );
 
+/** Blue circle with a white check (styled by .tick in app.css). */
+export const tick = () => raw(`<span class="tick">${icon('check', 12)}</span>`);
+
 export const logoMark = (size = 30) =>
   raw(
-    `<svg class="brand__mark" width="${size}" height="${size}" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="7" width="17" height="22" rx="4.5" fill="#a8c7b9"/><rect x="10" y="3" width="19" height="23" rx="4.5" fill="#356b5a"/><path d="M15 10h9M15 14.5h9M15 19h5.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>`,
+    `<svg class="brand__mark" width="${size}" height="${size}" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="7" width="17" height="22" rx="5" fill="#0098f2"/><rect x="10" y="3" width="19" height="23" rx="5" fill="#0d111b"/><path d="M15 10h9M15 14.5h9M15 19h5.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>`,
   );

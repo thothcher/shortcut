@@ -16,13 +16,13 @@
       position: fixed; z-index: 2147483647;
       left: max(14px, env(safe-area-inset-left)); bottom: max(14px, env(safe-area-inset-bottom));
       display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px 0 12px;
-      border-radius: 999px; background: rgba(39, 49, 47, 0.9); color: #fff; text-decoration: none;
-      font: 500 14px/1 "Noto Sans Georgian", "Segoe UI", system-ui, sans-serif;
-      box-shadow: 0 6px 22px rgba(0, 0, 0, 0.2); opacity: 0.92;
+      border-radius: 100px; background: rgba(13, 17, 27, 0.92); color: #fff; text-decoration: none;
+      font: 500 14px/1 "Noto Sans Georgian", "Segoe UI", system-ui, sans-serif; letter-spacing: -0.02em;
+      box-shadow: 0 0 0 1px rgb(36, 38, 40), 0 1px 2px rgba(27, 28, 29, 0.48), 0 8px 24px rgba(13, 17, 27, 0.18); opacity: 0.94;
       transition: opacity 0.2s, transform 0.2s;
     }
     .back:hover, .back:focus-visible { opacity: 1; transform: translateY(-1px); }
-    .back:focus-visible { outline: 2px solid #7fa896; outline-offset: 3px; }
+    .back:focus-visible { outline: 2px solid #0098f2; outline-offset: 3px; }
     .back svg { width: 18px; height: 18px; flex: none; }
     @media (max-width: 640px) {
       .back { width: 44px; height: 44px; padding: 0; justify-content: center; }

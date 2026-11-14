@@ -2,7 +2,7 @@ import { html } from '../lib/html.js';
 import { DAY } from '../config.js';
 import { icon } from './icons.js';
 
-const TONES = ['sage', 'sky', 'blush', 'sand', 'lilac'];
+const TONES = ['blue', 'iris', 'pink', 'leaf', 'coral'];
 
 /** Same book → same colour, every time. */
 export function toneFor(key) {
@@ -20,7 +20,7 @@ function titleSize(title) {
   return '';
 }
 
-/** Book cover: the uploaded image, or a generated "book" in one of five calm colours. */
+/** Book cover: the uploaded image, or a generated "book" in one of five accent colours. */
 export function cover(book) {
   if (book.cover) {
     return html`<div class="cover cover--image"><img src="/covers/${book.cover}" alt="" loading="lazy" decoding="async"></div>`;

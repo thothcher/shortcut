@@ -2,13 +2,15 @@ import { config } from '../config.js';
 import { html } from '../lib/html.js';
 import { formatMoney } from '../lib/format.js';
 import { page } from './layout.js';
-import { icon } from './icons.js';
+import { icon, tick } from './icons.js';
 import { bookCard, cover } from './components.js';
 
+// Fill the hero when there are fewer than three books. The slugs only pick the cover colour
+// (see toneFor): blue, iris, coral — tones that real books cover less often in a small catalog.
 const SAMPLE_COVERS = [
-  { slug: 'a', title: 'ფსიქოკონსულტირება', author: 'ლექციის კონსპექტი' },
-  { slug: 'bbbb', title: 'სხეულის ენა', author: 'არავერბალური კომუნიკაცია' },
-  { slug: 'cc', title: 'კოგნიტური თერაპია', author: 'ბარათები და ტესტები' },
+  { slug: 'd', title: 'ფსიქოკონსულტირება', author: 'ლექციის კონსპექტი' },
+  { slug: 'e', title: 'სხეულის ენა', author: 'არავერბალური კომუნიკაცია' },
+  { slug: 'c', title: 'კოგნიტური თერაპია', author: 'ბარათები და ტესტები' },
 ];
 
 const FEATURES = [
@@ -35,27 +37,43 @@ export function homePage(c, { books, unis }) {
 
   const body = html`
   <section class="hero">
-    <div class="container hero__grid">
+    <div class="container">
       <div class="hero__text">
-        <p class="eyebrow">${icon('sparkles', 16)} თსუ · ილიაუნი · BTU — შუალედურებისა და ფინალურებისთვის</p>
+        <p class="eyebrow">თსუ · ილიაუნი · BTU — შუალედურებისა და ფინალურებისთვის</p>
         <h1 class="display">მოემზადე გამოცდებისთვის ჭკვიანურად</h1>
         <p class="lead">შენი პროგრამის საგნები ციფრულ ფორმატში — მოკლე კონსპექტები, თავებად დაყოფილი მასალა, დასამახსოვრებელი ბარათები და სასწავლო თამაშები. ყველაფერი ერთ სივრცეში.</p>
         <div class="hero__actions">
           <a class="btn btn--primary btn--lg" href="/register">დაიწყე ახლავე ${icon('arrowRight', 18)}</a>
           <a class="btn btn--light btn--lg" href="#how">როგორ მუშაობს?</a>
         </div>
-        <p class="hero__note">${icon('check', 16)} ${price} — ${days} დღე · ავტომატური ჩამოჭრის გარეშე</p>
+        <ul class="rates">
+          <li>${tick()} <span><strong>${price}</strong> — ${days} დღე</span></li>
+          <li>${tick()} ავტომატური ჩამოჭრის გარეშე</li>
+          <li>${tick()} ტელეფონზეც</li>
+        </ul>
       </div>
-      <div class="hero__visual" aria-hidden="true">
-        <div class="hero__stack">
-          ${heroBooks.map((b, i) => html`<div class="hero__book hero__book--${i + 1}">${cover(b)}</div>`)}
+
+      <div class="desk" aria-hidden="true">
+        <div class="paper sheet">
+          <div class="sheet__top"><span class="label-caps">კონსპექტი</span><span class="label-caps">თავი 3 / 13</span></div>
+          <p class="sheet__title">ემპათიის სამი სახე</p>
+          <ol class="sheet__rows">
+            <li><span class="sheet__n">1</span><span>კოგნიტური ემპათია<i class="skel"></i></span></li>
+            <li><span class="sheet__n">2</span><span>ემოციური ემპათია<i class="skel"></i></span></li>
+            <li><span class="sheet__n">3</span><span>თანაგრძნობა<i class="skel"></i></span></li>
+          </ol>
+          <div class="sheet__foot"><span class="label-caps">კითხვის დრო</span><span>7 წთ</span></div>
         </div>
-        <div class="hero-card">
-          <span class="hero-card__label">${icon('layers', 14)} ბარათი 12 / 133</span>
-          <p class="hero-card__q">რა არის ემპათია?</p>
-          <span class="hero-card__hint">${icon('refresh', 14)} დააჭირე გადასატრიალებლად</span>
+        <div class="desk__books">
+          ${heroBooks.map((b, i) => html`<div class="desk__book desk__book--${i + 1}">${cover(b)}</div>`)}
         </div>
-        <div class="hero-pill">${icon('checkCircle', 16)} ნასწავლია 9 / 13 თავი</div>
+        <div class="paper flash">
+          <div class="flash__top"><span class="label-caps">ბარათი 12 / 133</span><span class="flash__chip">ფსიქოლოგია</span></div>
+          <p class="flash__q">რა არის ემპათია?</p>
+          <div class="flash__a"><i class="skel"></i><i class="skel"></i></div>
+          <span class="flash__hint">${icon('refresh', 14)} დააჭირე გადასატრიალებლად</span>
+        </div>
+        <div class="paper desk__pill">${tick()} ნასწავლია 9 / 13 თავი</div>
       </div>
     </div>
   </section>
@@ -64,6 +82,7 @@ export function homePage(c, { books, unis }) {
   html`<section class="section">
     <div class="container">
       <div class="section__head">
+        <p class="eyebrow">ბიბლიოთეკა</p>
         <h2>უკვე პლატფორმაზე</h2>
         <p class="muted">მასალების სია მუდმივად იზრდება.</p>
       </div>
@@ -75,23 +94,26 @@ export function homePage(c, { books, unis }) {
     </div>
   </section>`}
 
-  <section class="section section--tint" id="how">
+  <section class="section${books.length > 0 ? ' section--flush' : ''}" id="how">
     <div class="container">
-      <div class="section__head center">
-        <h2>როგორ მუშაობს</h2>
-        <p class="muted">სამი ნაბიჯი და უკვე სწავლობ.</p>
+      <div class="panel">
+        <div class="section__head center">
+          <p class="eyebrow">როგორ მუშაობს</p>
+          <h2>სამი ნაბიჯი და უკვე სწავლობ</h2>
+        </div>
+        <ol class="steps">
+          <li class="step"><span class="step__n">1</span><h3>დარეგისტრირდი</h3><p>აირჩიე უნივერსიტეტი და პროგრამა — ბიბლიოთეკა შენს საგნებს გაჩვენებს.</p></li>
+          <li class="step"><span class="step__n">2</span><h3>გააქტიურე წვდომა</h3><p>გადაიხადე ${price} ბარათით და მიიღე სრული წვდომა ${days} დღით.</p></li>
+          <li class="step"><span class="step__n">3</span><h3>ისწავლე</h3><p>გახსენი საგანი: კონსპექტი, ბარათები, თამაშები და ტესტები.</p></li>
+        </ol>
       </div>
-      <ol class="steps">
-        <li class="step"><span class="step__n">1</span><h3>დარეგისტრირდი</h3><p>აირჩიე უნივერსიტეტი და პროგრამა — ბიბლიოთეკა შენს საგნებს გაჩვენებს.</p></li>
-        <li class="step"><span class="step__n">2</span><h3>გააქტიურე წვდომა</h3><p>გადაიხადე ${price} ბარათით და მიიღე სრული წვდომა ${days} დღით.</p></li>
-        <li class="step"><span class="step__n">3</span><h3>ისწავლე</h3><p>გახსენი საგანი: კონსპექტი, ბარათები, თამაშები და ტესტები.</p></li>
-      </ol>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section section--flush">
     <div class="container">
       <div class="section__head center">
+        <p class="eyebrow">მასალები</p>
         <h2>ყველაფერი, რაც გამოცდისთვის გჭირდება</h2>
       </div>
       <div class="features">
@@ -104,30 +126,43 @@ export function homePage(c, { books, unis }) {
     </div>
   </section>
 
-  <section class="section section--tint" id="pricing">
-    <div class="container narrow center">
-      <div class="section__head center">
-        <h2>ერთი მარტივი ფასი</h2>
-        <p class="muted">არანაირი ხელშეკრულება და დამალული გადასახადი.</p>
+  <section class="section section--flush" id="pricing">
+    <div class="container">
+      <div class="panel pricing-split">
+        <div>
+          <div class="section__head">
+            <p class="eyebrow">ფასი</p>
+            <h2>ერთი მარტივი ფასი</h2>
+            <p class="muted">იხდი ერთხელ და სწავლობ ${days} დღე. როცა ვადა ამოიწურება, თავად გადაწყვეტ, გააგრძელო თუ არა.</p>
+          </div>
+          <ul class="ticks">
+            <li>${tick()} ხელშეკრულების გარეშე</li>
+            <li>${tick()} დამალული გადასახადის გარეშე</li>
+            <li>${tick()} ავტომატური ჩამოჭრის გარეშე</li>
+          </ul>
+        </div>
+        ${planCard(html`<a class="btn btn--primary btn--lg btn--block" href="/register">დაიწყე ${icon('arrowRight', 18)}</a>`)}
       </div>
-      ${planCard(html`<a class="btn btn--primary btn--lg btn--block" href="/register">დაიწყე ${icon('arrowRight', 18)}</a>`)}
     </div>
   </section>
 
-  <section class="section">
+  <section class="section section--flush">
     <div class="container narrow">
-      <div class="section__head center"><h2>ხშირად დასმული კითხვები</h2></div>
+      <div class="section__head center">
+        <p class="eyebrow">კითხვები</p>
+        <h2>ხშირად დასმული კითხვები</h2>
+      </div>
       <div class="faq">
         ${faq.map(([q, a]) => html`<details class="faq__item"><summary>${q}</summary><p>${a}</p></details>`)}
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section section--flush">
     <div class="container">
       <div class="cta">
         <h2>გამოცდამდე ცოტა დრო დარჩა? დაიწყე დღესვე.</h2>
-        <a class="btn btn--light btn--lg" href="/register">ანგარიშის შექმნა ${icon('arrowRight', 18)}</a>
+        <a class="btn btn--primary btn--lg" href="/register">ანგარიშის შექმნა ${icon('arrowRight', 18)}</a>
       </div>
     </div>
   </section>`;
@@ -140,14 +175,14 @@ export function planCard(action) {
   const price = formatMoney(config.plan.amount);
   return html`<div class="plan">
     <div class="plan__head">
-      <span class="plan__name">თვიური წვდომა</span>
+      <span class="label-caps">თვიური წვდომა</span>
       <p class="plan__price"><strong>${price}</strong><span>/ ${config.plan.days} დღე</span></p>
     </div>
     <ul class="ticks">
-      <li>${icon('check', 18)} ყველა საგანი და მასალა</li>
-      <li>${icon('check', 18)} კონსპექტები, ბარათები, თამაშები და ტესტები</li>
-      <li>${icon('check', 18)} ტელეფონი, ტაბლეტი და კომპიუტერი</li>
-      <li>${icon('check', 18)} ავტომატური ჩამოჭრის გარეშე — იხდი მხოლოდ მაშინ, როცა გჭირდება</li>
+      <li>${tick()} ყველა საგანი და მასალა</li>
+      <li>${tick()} კონსპექტები, ბარათები, თამაშები და ტესტები</li>
+      <li>${tick()} ტელეფონი, ტაბლეტი და კომპიუტერი</li>
+      <li>${tick()} ავტომატური ჩამოჭრის გარეშე — იხდი მხოლოდ მაშინ, როცა გჭირდება</li>
     </ul>
     ${action}
     <p class="plan__secure small muted">${icon('shield', 16)} უსაფრთხო გადახდა ბარათით Flitt-ის მეშვეობით</p>

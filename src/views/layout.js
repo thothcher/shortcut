@@ -74,7 +74,7 @@ function accessChip(user) {
 function header(c) {
   const u = c.user;
   return html`<header class="site-header">
-    <div class="container site-header__row">
+    <div class="container"><div class="site-header__row">
       <a class="brand" href="${u ? '/library' : '/'}" aria-label="${config.appName} — მთავარი">
         ${logoMark()}<span class="brand__name">${config.appName}</span>
       </a>
@@ -90,7 +90,7 @@ function header(c) {
             <a class="btn btn--ghost btn--sm" href="/login">შესვლა</a>
             <a class="btn btn--primary btn--sm" href="/register">რეგისტრაცია</a>
           </nav>`}
-    </div>
+    </div></div>
   </header>`;
 }
 
@@ -133,7 +133,7 @@ export function page(c, { title, description, body, variant = 'default', head = 
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>${fullTitle}</title>
   <meta name="description" content="${description || 'უნივერსიტეტის საგნები ციფრულ ფორმატში: მოკლე კონსპექტები, ბარათები, თამაშები და ტესტები. 10 ₾ — 30 დღე.'}">
-  <meta name="theme-color" content="#f8f6f1">
+  <meta name="theme-color" content="#ffffff">
   <link rel="icon" href="${asset('img/favicon.svg')}" type="image/svg+xml">
   <link rel="preload" href="/static/fonts/sans-georgian.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="${asset('css/app.css')}">
